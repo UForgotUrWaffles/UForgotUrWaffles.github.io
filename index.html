@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit Countdown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .date-range {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-box.percentage {
+            border-left-color: #764ba2;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            margin-top: 40px;
+        }
+
+        .progress-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75em;
+            font-weight: bold;
+            min-width: 30px;
+        }
+
+        .details {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .detail-row {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .stat-value {
+                font-size: 2em;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Visit Countdown</h1>
+        <div class="date-range">January 10, 2026 → March 28, 2026</div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Days Passed</div>
+                <div class="stat-value" id="daysPassed">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Days Remaining</div>
+                <div class="stat-value" id="daysRemaining">0</div>
+            </div>
+        </div>
+
+        <div class="stat-box percentage">
+            <div class="stat-label">Progress</div>
+            <div class="stat-value" id="percentage">0%</div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-label">Timeline</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="details">
+            <div class="detail-row">Total duration: <strong id="totalDays">0</strong> days</div>
+            <div class="detail-row">Current date: <strong id="currentDate">-</strong></div>
+        </div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            // Define the dates
+            const startDate = new Date(2026, 0, 10); // January 10, 2026
+            const endDate = new Date(2026, 2, 28);   // March 28, 2026
+            const today = new Date();
+            
+            // Reset time to midnight for accurate day calculation
+            startDate.setHours(0, 0, 0, 0);
+            endDate.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+
+            // Calculate total days
+            const totalMs = endDate - startDate;
+            const totalDays = Math.floor(totalMs / (1000 * 60 * 60 * 24));
+
+            // Calculate days passed
+            const passedMs = today - startDate;
+            const daysPassed = Math.max(0, Math.floor(passedMs / (1000 * 60 * 60 * 24)));
+
+            // Calculate days remaining
+            const daysRemaining = Math.max(0, totalDays - daysPassed);
+
+            // Calculate percentage
+            const percentage = Math.round((daysPassed / totalDays) * 100);
+
+            // Update DOM
+            document.getElementById('daysPassed').textContent = daysPassed;
+            document.getElementById('daysRemaining').textContent = daysRemaining;
+            document.getElementById('percentage').textContent = percentage + '%';
+            document.getElementById('totalDays').textContent = totalDays;
+            document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Update progress bar
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = percentage + '%';
+            if (percentage > 5) {
+                progressFill.textContent = percentage + '%';
+            }
+        }
+
+        // Update on page load
+        updateCountdown();
+
+        // Update every minute
+        setInterval(updateCountdown, 60000);
+    </script>
+</body>
+</html>
