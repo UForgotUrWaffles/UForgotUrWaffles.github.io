@@ -4,17 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visit Countdown</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-blue: #7dd3d4;
-            --accent-green: #90C695;
-            --bg-dark: #0f1419;
-            --surface-dark: #1a1f2e;
-            --text-light: #e8eef2;
-            --text-muted: #a0aec0;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -22,284 +12,140 @@
         }
 
         body {
-            font-family: 'Syne', sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #132c2c 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ADD8E6 0%, #90C695 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                repeating-linear-gradient(
-                    0deg,
-                    rgba(125, 211, 212, 0.03) 0px,
-                    rgba(125, 211, 212, 0.03) 1px,
-                    transparent 1px,
-                    transparent 2px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    rgba(125, 211, 212, 0.05) 0px,
-                    rgba(125, 211, 212, 0.05) 1px,
-                    transparent 1px,
-                    transparent 2px
-                );
-            pointer-events: none;
-            z-index: 1;
         }
 
         .container {
-            background: var(--surface-dark);
-            border-radius: 2px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5),
-                        0 0 1px rgba(125, 211, 212, 0.2);
-            padding: 70px 50px;
-            max-width: 700px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 50px;
+            max-width: 600px;
             width: 100%;
             text-align: center;
-            position: relative;
-            z-index: 2;
-            border: 1px solid rgba(125, 211, 212, 0.1);
-            animation: fadeInUp 1s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes countUp {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(125, 211, 212, 0.3), inset 0 0 20px rgba(125, 211, 212, 0.05);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(125, 211, 212, 0.5), inset 0 0 20px rgba(125, 211, 212, 0.1);
-            }
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            color: var(--text-light);
-            font-size: 3.5em;
-            margin-bottom: 5px;
-            letter-spacing: -1px;
-            animation: slideInLeft 0.8s ease-out 0.2s backwards;
-            font-weight: 700;
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
         }
 
         .date-range {
-            color: var(--text-muted);
-            font-size: 0.95em;
-            margin-bottom: 60px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 400;
-            animation: slideInRight 0.8s ease-out 0.3s backwards;
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 40px;
         }
 
         .stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 50px;
+            gap: 30px;
+            margin-bottom: 40px;
         }
 
         .stat-box {
-            background: rgba(125, 211, 212, 0.05);
-            border-radius: 0;
-            padding: 35px 25px;
-            border-top: 2px solid var(--primary-blue);
-            position: relative;
-            animation: countUp 0.6s ease-out backwards;
-            transition: all 0.3s ease;
-        }
-
-        .stat-box:nth-child(1) {
-            animation-delay: 0.4s;
-        }
-
-        .stat-box:nth-child(2) {
-            animation-delay: 0.5s;
-        }
-
-        .stat-box:hover {
-            background: rgba(125, 211, 212, 0.1);
-            border-top-color: var(--primary-blue);
-            animation: glow 2s ease-in-out infinite;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 4px solid #ADD8E6;
         }
 
         .stat-box.percentage {
-            grid-column: 1 / -1;
-            border-top-color: var(--accent-green);
-            background: rgba(144, 198, 149, 0.05);
-            animation-delay: 0.6s;
-        }
-
-        .stat-box.percentage:hover {
-            background: rgba(144, 198, 149, 0.1);
+            border-left-color: #90C695;
         }
 
         .stat-label {
-            color: var(--text-muted);
-            font-size: 0.75em;
-            margin-bottom: 12px;
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             font-weight: 600;
-            font-family: 'IBM Plex Mono', monospace;
         }
 
         .stat-value {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 3em;
-            color: var(--primary-blue);
-            font-weight: 600;
-            letter-spacing: -2px;
-            text-shadow: 0 0 20px rgba(125, 211, 212, 0.3);
-        }
-
-        .stat-box.percentage .stat-value {
-            color: var(--accent-green);
-            text-shadow: 0 0 20px rgba(144, 198, 149, 0.3);
+            font-size: 2.5em;
+            color: #333;
+            font-weight: bold;
         }
 
         .progress-container {
-            margin-top: 50px;
+            margin-top: 40px;
         }
 
         .progress-label {
-            color: var(--text-muted);
-            font-size: 0.75em;
-            margin-bottom: 16px;
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 12px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             font-weight: 600;
-            font-family: 'IBM Plex Mono', monospace;
-            animation: slideInLeft 0.8s ease-out 0.7s backwards;
         }
 
         .progress-bar {
-            background: rgba(125, 211, 212, 0.1);
-            border-radius: 0;
-            height: 4px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
             overflow: hidden;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(125, 211, 212, 0.2);
-            animation: slideInRight 0.8s ease-out 0.7s backwards;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .progress-fill {
-            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--accent-green) 100%);
+            background: linear-gradient(90deg, #ADD8E6 0%, #90C695 100%);
             height: 100%;
-            border-radius: 0;
-            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 10px;
+            transition: width 0.3s ease;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            padding-right: 8px;
-            color: var(--surface-dark);
-            font-size: 0.65em;
-            font-weight: 600;
-            font-family: 'IBM Plex Mono', monospace;
-            box-shadow: 0 0 20px rgba(125, 211, 212, 0.4);
+            justify-content: center;
+            color: white;
+            font-size: 0.75em;
+            font-weight: bold;
+            min-width: 30px;
         }
 
         .details {
-            margin-top: 50px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(125, 211, 212, 0.2);
-            color: var(--text-muted);
-            font-size: 0.9em;
-            animation: slideInUp 0.8s ease-out 0.8s backwards;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+            color: #666;
+            font-size: 0.95em;
         }
 
         .detail-row {
-            margin: 10px 0;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85em;
+            margin: 8px 0;
         }
 
-        .detail-row strong {
-            color: var(--primary-blue);
-            font-weight: 600;
-        }
-
-        @media (max-width: 700px) {
+        @media (max-width: 600px) {
             .container {
-                padding: 50px 30px;
+                padding: 30px 20px;
             }
 
             h1 {
-                font-size: 2.5em;
+                font-size: 1.8em;
             }
 
             .stat-value {
-                font-size: 2.2em;
+                font-size: 2em;
             }
 
             .stats {
-                gap: 18px;
-            }
-
-            .date-range {
-                font-size: 0.85em;
-                margin-bottom: 40px;
+                gap: 20px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>waiting for you</h1>
-        <div class="date-range">JAN 10 — MAR 28</div>
+        <h1>Shawty Visit Countdown</h1>
+        <div class="date-range">January 10, 2026 → March 28, 2026</div>
 
         <div class="stats">
             <div class="stat-box">
