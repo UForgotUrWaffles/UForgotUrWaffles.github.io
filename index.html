@@ -271,7 +271,7 @@
 <body>
     <div class="container">
         <h1>Together For Summer Countdown</h1>
-        <div class="date-range">April 5, 2026 → May 18, 2026</div>
+        <div class="date-range">April 5, 2026 → May 19, 2026</div>
 
         <div class="stats">
             <div class="stat-box">
@@ -333,9 +333,9 @@
     <script>
         const MS_PER_DAY = 1000 * 60 * 60 * 24;
         const startDate = new Date(2026, 3, 5); // April 5, 2026
-        const endDate = new Date(2026, 4, 18); // May 18, 2026
+        const endDate = new Date(2026, 4, 19); // May 19, 2026
         const percentageStartMoment = new Date(2026, 3, 5, 5, 0, 0); // April 5, 2026 at 5:00 AM
-        const finalMoment = new Date(2026, 4, 18, 12, 0, 0); // May 18, 2026 at noon
+        const finalMoment = new Date(2026, 4, 19, 20, 0, 0); // May 18, 2026 at 8pm (20 in military time)
 
         function toMidnight(date) {
             const normalized = new Date(date);
@@ -417,7 +417,7 @@
             document.getElementById('countdownMinutes').textContent = formatCountdownPart(countdownMinutes);
             document.getElementById('countdownSeconds').textContent = formatCountdownPart(countdownSeconds);
             document.getElementById('countdownTarget').textContent = remainingMs > 0
-                ? 'Counting down to May 18, 2026 at 12:00 PM'
+                ? 'Counting down to May 19, 2026 at 8:00 PM'
                 : 'The final noon milestone has arrived.';
 
             renderCalendar(todayMidnight);
