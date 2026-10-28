@@ -332,10 +332,10 @@
 
     <script>
         const MS_PER_DAY = 1000 * 60 * 60 * 24;
-        const startDate = new Date(2026, 7, 25); // August 25, 2026
-        const endDate = new Date(2026, 9, 1); // October 1, 2026
-        const percentageStartMoment = new Date(2026, 7, 25, 21, 0, 0); // August 25, 2026 at 9:00 PM
-        const finalMoment = new Date(2026, 9, 1, 15, 30, 0); // October 1, 2026 at 3:30 PM
+        const startDate = new Date(2026, 9, 4); // October 4, 2026
+        const endDate = new Date(2026, 10, 21); // November 21, 2026
+        const percentageStartMoment = new Date(2026, 9, 4, 15, 30, 0); // October 4, 2026 at 4:30 PM
+        const finalMoment = new Date(2026, 10, 21, 19, 00, 0); // November 21, 2026 at 7:00 PM
 
         function toMidnight(date) {
             const normalized = new Date(date);
@@ -417,8 +417,8 @@
             document.getElementById('countdownMinutes').textContent = formatCountdownPart(countdownMinutes);
             document.getElementById('countdownSeconds').textContent = formatCountdownPart(countdownSeconds);
             document.getElementById('countdownTarget').textContent = remainingMs > 0
-                ? 'Counting down to October 1, 2026 at 3:30 PM'
-                : 'The final noon milestone has arrived.';
+                ? 'Counting down to November 21, 2026 at 7:00 PM'
+                : 'The final milestone has arrived.';
 
             renderCalendar(todayMidnight);
         }
